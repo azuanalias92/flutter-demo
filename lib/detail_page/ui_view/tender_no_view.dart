@@ -96,7 +96,7 @@ class TenderNoView extends StatelessWidget {
                                             textAlign: TextAlign.left,
                                             style: TextStyle(
                                               fontFamily: AppTheme.fontName,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.w700,
                                               fontSize: 18,
                                               letterSpacing: 0.0,
                                               color: AppTheme.nearlyDarkBlue,
