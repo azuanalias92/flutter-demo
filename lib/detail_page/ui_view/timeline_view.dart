@@ -45,60 +45,58 @@ class TimelineView extends StatelessWidget {
           child: Transform(
             transform: Matrix4.translationValues(
                 0.0, 30 * (1.0 - animation!.value), 0.0),
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24.0, right: 24.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppTheme.white,
-                        borderRadius: BorderRadius.all(Radius.circular(8.0)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(),
-                            ),
-                            Icon(
-                              Icons.calendar_month_outlined,
-                              color: AppTheme.nearlyBlack.withOpacity(0.5),
-                              size: 32,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: SizedBox(),
-                            ),
-                            Flexible(
-                              child: Text(
-                                "JABATAN PENGAIRAN DAN SALIRAN SARAWAK",
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                                softWrap: false,
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  fontFamily: AppTheme.fontName,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 18,
-                                  letterSpacing: -0.2,
-                                  color: AppTheme.darkText,
-                                ),
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: AppTheme.white,
+                      borderRadius: BorderRadius.all(Radius.circular(8.0)),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(),
+                          ),
+                          Icon(
+                            Icons.calendar_month_outlined,
+                            color: AppTheme.nearlyBlack.withOpacity(0.5),
+                            size: 32,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SizedBox(),
+                          ),
+                          Flexible(
+                            child: Text(
+                              "JABATAN PENGAIRAN DAN SALIRAN SARAWAK",
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              softWrap: false,
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                fontFamily: AppTheme.fontName,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 18,
+                                letterSpacing: -0.2,
+                                color: AppTheme.darkText,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                  ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: listOfEvents.length,
-                      itemBuilder: (context, i) {
-                        return Padding(
+                ),
+                ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: listOfEvents.length,
+                    itemBuilder: (context, i) {
+                      return Padding(
                           padding: const EdgeInsets.only(right: 24, left: 24),
                           child: Container(
                               decoration: BoxDecoration(
@@ -106,11 +104,9 @@ class TimelineView extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(8.0)),
                               ),
-                              child: getNewTimeLine(context, i)),
-                        );
-                      }),
-                ],
-              ),
+                              child: getNewTimeLine(context, i)));
+                    }),
+              ],
             ),
           ),
         );
