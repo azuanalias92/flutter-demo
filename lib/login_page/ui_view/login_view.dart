@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../app_theme.dart';
 
-class UpdateProfileView extends StatelessWidget {
+class LoginView extends StatelessWidget {
   final AnimationController? animationController;
   final Animation<double>? animation;
 
-  const UpdateProfileView({Key? key, this.animationController, this.animation})
+  const LoginView({Key? key, this.animationController, this.animation})
       : super(key: key);
 
   @override
@@ -30,21 +30,8 @@ class UpdateProfileView extends StatelessWidget {
                               height: 120,
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
-                                  child: Image.asset("./assets/all.png")),
-                            ),
-                            Positioned(
-                              bottom: 0,
-                              right: 0,
-                              child: Container(
-                                width: 35,
-                                height: 35,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                    color: AppTheme.white),
-                                child: const Icon(Icons.edit,
-                                    color: Colors.black, size: 20),
-                              ),
-                            ),
+                                  child: Image.asset("./assets/24-hours.png")),
+                            )
                           ],
                         ),
                         SizedBox(height: 50),
@@ -55,19 +42,7 @@ class UpdateProfileView extends StatelessWidget {
                             children: [
                               TextFormField(
                                 decoration: const InputDecoration(
-                                    label: Text('Nama Penuh'),
-                                    prefixIcon: Icon(Icons.person)),
-                              ),
-                              SizedBox(height: 20),
-                              TextFormField(
-                                decoration: const InputDecoration(
                                     label: Text('Emel'),
-                                    prefixIcon: Icon(Icons.person)),
-                              ),
-                              SizedBox(height: 20),
-                              TextFormField(
-                                decoration: const InputDecoration(
-                                    label: Text('No Telefon'),
                                     prefixIcon: Icon(Icons.person)),
                               ),
                               SizedBox(height: 20),
@@ -81,18 +56,23 @@ class UpdateProfileView extends StatelessWidget {
                                       onPressed: () {}),
                                 ),
                               ),
-                              SizedBox(height: 20),
+                              SizedBox(height: 30),
                               SizedBox(
                                 width: double.infinity,
+                                height: 60,
                                 child: ElevatedButton(
                                   onPressed: () => {},
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: AppTheme.white,
                                       side: BorderSide.none,
                                       shape: const StadiumBorder()),
-                                  child: const Text('Sunting Profil',
-                                      style:
-                                          TextStyle(color: AppTheme.darkGrey)),
+                                  child: Text(
+                                    'Log Masuk',
+                                    style: TextStyle(
+                                        color: AppTheme.darkGrey,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 24),
+                                  ),
                                 ),
                               ),
                             ],

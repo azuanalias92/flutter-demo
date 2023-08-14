@@ -1,4 +1,5 @@
 import 'package:jomtender/detail_page/detail_page_view.dart';
+import 'package:jomtender/login_page/login_page_view.dart';
 import 'package:jomtender/models/tab_icon_data.dart';
 import 'package:flutter/material.dart';
 import 'package:jomtender/listing_page/search_page_view.dart';
@@ -31,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
-    tabBody = UpdateProfilePageView(animationController: animationController);
+    tabBody = MyMainPageScreen(animationController: animationController);
     super.initState();
   }
 
@@ -53,12 +54,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
             if (!snapshot.hasData) {
               return const SizedBox();
             } else {
-              return Stack(
-                children: <Widget>[
-                  tabBody,
-                  bottomBar(),
-                ],
-              );
+              if (snapshot.data == true) {
+                return Stack(
+                  children: <Widget>[
+                    tabBody,
+                    bottomBar(),
+                  ],
+                );
+              } else {
+                return LoginPageView(animationController: animationController);
+              }
             }
           },
         ),
@@ -68,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Future<bool> getData() async {
     await Future<dynamic>.delayed(const Duration(milliseconds: 200));
-    return true;
+    return false;
   }
 
   Widget bottomBar() {
