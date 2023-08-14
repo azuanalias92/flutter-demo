@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:jomtender/main_page/ui_view/procurement_view.dart';
-import 'package:jomtender/main_page/ui_view/summary_view.dart';
-import 'package:jomtender/main_page/ui_view/title_view.dart';
+import 'package:jomtender/listing_page/ui_view/search_bar_view.dart';
+import 'package:jomtender/listing_page/ui_view/sticky_group_view.dart';
+
 import '../app_theme.dart';
 
-class MyMainPageScreen extends StatefulWidget {
-  const MyMainPageScreen({Key? key, this.animationController})
+class ListingPageScreen extends StatefulWidget {
+  const ListingPageScreen({Key? key, this.animationController})
       : super(key: key);
 
   final AnimationController? animationController;
   @override
-  State<MyMainPageScreen> createState() => _MyMainPageScreenState();
+  State<ListingPageScreen> createState() => _ListingPageScreenState();
 }
 
-class _MyMainPageScreenState extends State<MyMainPageScreen>
+class _ListingPageScreenState extends State<ListingPageScreen>
     with TickerProviderStateMixin {
   Animation<double>? topBarAnimation;
 
@@ -57,75 +57,22 @@ class _MyMainPageScreenState extends State<MyMainPageScreen>
   void addAllListData() {
     const int count = 9;
 
-    //summary
     listViews.add(
-      TitleView(
-        titleTxt: 'Ringkasan Perolehan',
-        subTxt: 'Butiran',
+      SearchBarView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
             curve:
-                Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      SummaryView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-
-    //recent
-    listViews.add(
-      TitleView(
-        titleTxt: 'Perolehan Terkini',
-        subTxt: 'Lihat Semua',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      ProcurementView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
+                Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
 
     listViews.add(
-      ProcurementView(
+      StickyGroupView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
             curve:
-                Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-
-    listViews.add(
-      ProcurementView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      ProcurementView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
+                Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -139,9 +86,9 @@ class _MyMainPageScreenState extends State<MyMainPageScreen>
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: AppTheme.white,
+      color: AppTheme.background,
       child: Scaffold(
-        backgroundColor: AppTheme.background,
+        backgroundColor: Colors.transparent,
         body: Stack(
           children: <Widget>[
             getMainListViewUI(),
@@ -224,7 +171,7 @@ class _MyMainPageScreenState extends State<MyMainPageScreen>
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Halaman Utama',
+                                  'Carian',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontFamily: AppTheme.fontName,
@@ -236,67 +183,6 @@ class _MyMainPageScreenState extends State<MyMainPageScreen>
                                 ),
                               ),
                             ),
-                            // SizedBox(
-                            //   height: 38,
-                            //   width: 38,
-                            //   child: InkWell(
-                            //     highlightColor: Colors.transparent,
-                            //     borderRadius: const BorderRadius.all(
-                            //         Radius.circular(32.0)),
-                            //     onTap: () {},
-                            //     child: Center(
-                            //       child: Icon(
-                            //         Icons.keyboard_arrow_left,
-                            //         color: AppTheme.grey,
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
-                            // Padding(
-                            //   padding: const EdgeInsets.only(
-                            //     left: 8,
-                            //     right: 8,
-                            //   ),
-                            //   child: Row(
-                            //     children: <Widget>[
-                            //       Padding(
-                            //         padding: const EdgeInsets.only(right: 8),
-                            //         child: Icon(
-                            //           Icons.calendar_today,
-                            //           color: AppTheme.grey,
-                            //           size: 18,
-                            //         ),
-                            //       ),
-                            //       Text(
-                            //         '15 May',
-                            //         textAlign: TextAlign.left,
-                            //         style: TextStyle(
-                            //           fontFamily: AppTheme.fontName,
-                            //           fontWeight: FontWeight.normal,
-                            //           fontSize: 18,
-                            //           letterSpacing: -0.2,
-                            //           color: AppTheme.darkerText,
-                            //         ),
-                            //       ),
-                            //     ],
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   height: 38,
-                            //   width: 38,
-                            //   child: InkWell(
-                            //     highlightColor: Colors.transparent,
-                            //     borderRadius: const BorderRadius.all(
-                            //         Radius.circular(32.0)),
-                            //     onTap: () {},
-                            //     child: Center(
-                            //       child: Icon(
-                            //         Icons.keyboard_arrow_right,
-                            //         color: AppTheme.grey,
-                            //       ),
-                            //     ),
-                            //   ),
-                            // ),
                           ],
                         ),
                       )

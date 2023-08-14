@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:jomtender/main_page/ui_view/procurement_view.dart';
-import 'package:jomtender/main_page/ui_view/summary_view.dart';
-import 'package:jomtender/main_page/ui_view/title_view.dart';
+import 'package:jomtender/profile_page/ui_view/profile_view.dart';
 import '../app_theme.dart';
 
-class MyMainPageScreen extends StatefulWidget {
-  const MyMainPageScreen({Key? key, this.animationController})
-      : super(key: key);
+class ProfilePageView extends StatefulWidget {
+  const ProfilePageView({Key? key, this.animationController}) : super(key: key);
 
   final AnimationController? animationController;
   @override
-  State<MyMainPageScreen> createState() => _MyMainPageScreenState();
+  State<ProfilePageView> createState() => _ProfilePageViewState();
 }
 
-class _MyMainPageScreenState extends State<MyMainPageScreen>
+class _ProfilePageViewState extends State<ProfilePageView>
     with TickerProviderStateMixin {
   Animation<double>? topBarAnimation;
 
@@ -57,75 +54,12 @@ class _MyMainPageScreenState extends State<MyMainPageScreen>
   void addAllListData() {
     const int count = 9;
 
-    //summary
     listViews.add(
-      TitleView(
-        titleTxt: 'Ringkasan Perolehan',
-        subTxt: 'Butiran',
+      ProfileView(
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController!,
             curve:
                 Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      SummaryView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-
-    //recent
-    listViews.add(
-      TitleView(
-        titleTxt: 'Perolehan Terkini',
-        subTxt: 'Lihat Semua',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      ProcurementView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-
-    listViews.add(
-      ProcurementView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-
-    listViews.add(
-      ProcurementView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController!,
-      ),
-    );
-    listViews.add(
-      ProcurementView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController!,
-            curve:
-                Interval((1 / count) * 1, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController!,
       ),
     );
@@ -224,7 +158,7 @@ class _MyMainPageScreenState extends State<MyMainPageScreen>
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Halaman Utama',
+                                  'Profil',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontFamily: AppTheme.fontName,

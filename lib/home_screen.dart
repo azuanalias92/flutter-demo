@@ -1,6 +1,9 @@
 import 'package:jomtender/detail_page/detail_page_view.dart';
 import 'package:jomtender/models/tab_icon_data.dart';
 import 'package:flutter/material.dart';
+import 'package:jomtender/listing_page/search_page_view.dart';
+import 'package:jomtender/profile_page/profile_page_view.dart';
+import 'package:jomtender/profile_page/update_profile_page_view.dart';
 import 'app_theme.dart';
 import 'bottom_navigation_view/bottom_bar_view.dart';
 import 'main_page/main_page_view.dart';
@@ -28,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
-    tabBody = DetailPageScreen(animationController: animationController);
+    tabBody = UpdateProfilePageView(animationController: animationController);
     super.initState();
   }
 
@@ -96,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     return;
                   }
                   setState(() {
-                    tabBody = DetailPageScreen(
+                    tabBody = ListingPageScreen(
                         animationController: animationController);
                   });
                 });
@@ -107,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     return;
                   }
                   setState(() {
-                    tabBody = MyMainPageScreen(
+                    tabBody = DetailPageScreen(
                         animationController: animationController);
                   });
                 });
@@ -118,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     return;
                   }
                   setState(() {
-                    tabBody = DetailPageScreen(
+                    tabBody = UpdateProfilePageView(
                         animationController: animationController);
                   });
                 });
@@ -129,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
                     return;
                   }
                   setState(() {
-                    tabBody = MyMainPageScreen(
+                    tabBody = ProfilePageView(
                         animationController: animationController);
                   });
                 });
