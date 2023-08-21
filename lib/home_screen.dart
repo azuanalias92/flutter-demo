@@ -8,6 +8,7 @@ import 'package:jomtender/profile_page/update_profile_page_view.dart';
 import 'app_theme.dart';
 import 'bottom_navigation_view/bottom_bar_view.dart';
 import 'main_page/main_page_view.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -29,10 +30,10 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       tab.isSelected = false;
     }
     tabIconsList[0].isSelected = true;
-
     animationController = AnimationController(
         duration: const Duration(milliseconds: 600), vsync: this);
     tabBody = MyMainPageScreen(animationController: animationController);
+
     super.initState();
   }
 
@@ -49,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: FutureBuilder<bool>(
-          future: getData(),
+          future: getToken(),
           builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
             if (!snapshot.hasData) {
               return const SizedBox();
@@ -71,9 +72,17 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     );
   }
 
-  Future<bool> getData() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 200));
-    return false;
+  Future<bool> getToken() async {
+    final storage = FlutterSecureStorage();
+    String? token = await storage.read(key: 'token');
+
+    //print(token);
+
+    if (token?.isEmpty ?? true) {
+      return false;
+    } else {
+      return true;
+    }
   }
 
   Widget bottomBar() {

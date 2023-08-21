@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:jomtender/home_screen.dart';
 import '../../app_theme.dart';
 
 class UpdateProfileView extends StatelessWidget {
@@ -7,6 +9,16 @@ class UpdateProfileView extends StatelessWidget {
 
   const UpdateProfileView({Key? key, this.animationController, this.animation})
       : super(key: key);
+
+  Future<void> logout(context) async {
+    final storage = FlutterSecureStorage();
+    await storage.delete(key: 'token');
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,6 +103,19 @@ class UpdateProfileView extends StatelessWidget {
                                       side: BorderSide.none,
                                       shape: const StadiumBorder()),
                                   child: const Text('Sunting Profil',
+                                      style:
+                                          TextStyle(color: AppTheme.darkGrey)),
+                                ),
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                  onPressed: () => {logout(context)},
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppTheme.palleteRed,
+                                      side: BorderSide.none,
+                                      shape: const StadiumBorder()),
+                                  child: const Text('Log Keluar',
                                       style:
                                           TextStyle(color: AppTheme.darkGrey)),
                                 ),
