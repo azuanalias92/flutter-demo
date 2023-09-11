@@ -5,17 +5,11 @@
   "version": "0.2.0",
   "configurations": [
     {
-      // "type": "chrome",
-      // "request": "launch",
-      // "name": "Launch Chrome against localhost",
-      // "url": "http://localhost:8080",
-      // "webRoot": "${workspaceFolder}"
-
       "name": "Flutter",
       "request": "launch",
       "type": "dart",
       "flutterMode": "debug",
-      "args": ["--dart-define-from-file=api-keys.json"]
+      "args": ["-d", "chrome", "--dart-define-from-file=api-keys.json"]
     }
   ]
 }

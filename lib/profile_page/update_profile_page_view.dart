@@ -1,6 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:jomtender/profile_page/class/user.dart';
 import 'package:jomtender/profile_page/ui_view/update_profile_view.dart';
 import '../app_theme.dart';
+import 'package:http/http.dart' as http;
 
 class UpdateProfilePageView extends StatefulWidget {
   const UpdateProfilePageView({Key? key, this.animationController})
@@ -66,9 +71,31 @@ class _UpdateProfilePageViewState extends State<UpdateProfilePageView>
     );
   }
 
-  Future<bool> getData() async {
-    await Future<dynamic>.delayed(const Duration(milliseconds: 50));
-    return true;
+  Future<User> getData() async {
+    final storage = FlutterSecureStorage();
+    String? token = await storage.read(key: 'token');
+    if (token?.isEmpty ?? true) {
+      throw Exception('Failed to load token');
+    } else {
+      final headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      const api = String.fromEnvironment('API_URL');
+      final response =
+          await http.get(Uri.parse('$api/users/me'), headers: headers);
+
+      if (response.statusCode == 200) {
+        // If the server did return a 200 OK response,
+        // then parse the JSON.
+        return User.fromJson(jsonDecode(response.body));
+      } else {
+        // If the server did not return a 200 OK response,
+        // then throw an exception.
+        throw Exception('Failed to load user');
+      }
+    }
   }
 
   @override
@@ -91,12 +118,13 @@ class _UpdateProfilePageViewState extends State<UpdateProfilePageView>
   }
 
   Widget getMainListViewUI() {
-    return FutureBuilder<bool>(
+    return FutureBuilder<User>(
       future: getData(),
-      builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
         if (!snapshot.hasData) {
           return const SizedBox();
         } else {
+          print(snapshot.data!.email);
           return ListView.builder(
             controller: scrollController,
             padding: EdgeInsets.only(
@@ -109,7 +137,14 @@ class _UpdateProfilePageViewState extends State<UpdateProfilePageView>
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context, int index) {
               widget.animationController?.forward();
-              return listViews[index];
+              return UpdateProfileView(
+                  animation: Tween<double>(begin: 0.0, end: 1.0).animate(
+                      CurvedAnimation(
+                          parent: widget.animationController!,
+                          curve: Interval((1 / 1) * 0, 1.0,
+                              curve: Curves.fastOutSlowIn))),
+                  animationController: widget.animationController!,
+                  data: snapshot.data);
             },
           );
         }

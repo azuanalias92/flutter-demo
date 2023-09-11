@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jomtender/home_screen.dart';
+import 'package:jomtender/profile_page/class/user.dart';
 import '../../app_theme.dart';
 
 class UpdateProfileView extends StatelessWidget {
   final AnimationController? animationController;
   final Animation<double>? animation;
+  final User? data;
 
-  const UpdateProfileView({Key? key, this.animationController, this.animation})
+  const UpdateProfileView(
+      {Key? key, this.animationController, this.animation, this.data})
       : super(key: key);
 
   Future<void> logout(context) async {
@@ -22,6 +25,14 @@ class UpdateProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final nameController = TextEditingController();
+    nameController.text = data!.name;
+    final emailController = TextEditingController();
+    emailController.text = data!.email;
+    final phoneController = TextEditingController();
+    phoneController.text = data!.phone ?? '';
+    final passwordController = TextEditingController();
+
     return AnimatedBuilder(
       animation: animationController!,
       builder: (BuildContext context, Widget? child) {
@@ -69,18 +80,21 @@ class UpdateProfileView extends StatelessWidget {
                                 decoration: const InputDecoration(
                                     label: Text('Nama Penuh'),
                                     prefixIcon: Icon(Icons.person)),
+                                controller: nameController,
                               ),
                               SizedBox(height: 20),
                               TextFormField(
                                 decoration: const InputDecoration(
                                     label: Text('Emel'),
-                                    prefixIcon: Icon(Icons.person)),
+                                    prefixIcon: Icon(Icons.email)),
+                                controller: emailController,
                               ),
                               SizedBox(height: 20),
                               TextFormField(
                                 decoration: const InputDecoration(
                                     label: Text('No Telefon'),
-                                    prefixIcon: Icon(Icons.person)),
+                                    prefixIcon: Icon(Icons.phone)),
+                                controller: phoneController,
                               ),
                               SizedBox(height: 20),
                               TextFormField(
@@ -92,6 +106,7 @@ class UpdateProfileView extends StatelessWidget {
                                       icon: const Icon(Icons.visibility_off),
                                       onPressed: () {}),
                                 ),
+                                controller: passwordController,
                               ),
                               SizedBox(height: 20),
                               SizedBox(
