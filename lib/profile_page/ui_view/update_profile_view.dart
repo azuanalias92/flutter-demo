@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:jomtender/home_screen.dart';
 import 'package:jomtender/profile_page/class/user.dart';
 import '../../app_theme.dart';
+import 'package:http/http.dart' as http;
 
 class UpdateProfileView extends StatelessWidget {
   final AnimationController? animationController;
@@ -21,6 +24,41 @@ class UpdateProfileView extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (context) => HomeScreen()),
     );
+  }
+
+  Future<void> editUser(context, data, name, email, password) async {
+    final storage = FlutterSecureStorage();
+    String? token = await storage.read(key: 'token');
+    if (token?.isEmpty ?? true) {
+      throw Exception('Failed to load token');
+    } else {
+      final headers = {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $token',
+      };
+      const api = String.fromEnvironment('API_URL');
+      print(data!.id);
+
+      final response = await http.patch(
+        Uri.parse('$api/users/${data!.id}'),
+        headers: headers,
+        body: jsonEncode(<String, String>{
+          'name': name,
+          'email': email,
+          'password': password,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        // If the server did return a 200 OK response,
+        // then parse the JSON.
+      } else {
+        // If the server did not return a 200 OK response,
+        // then throw an exception.
+        throw Exception('Failed to load user');
+      }
+    }
   }
 
   @override
@@ -112,7 +150,14 @@ class UpdateProfileView extends StatelessWidget {
                               SizedBox(
                                 width: double.infinity,
                                 child: ElevatedButton(
-                                  onPressed: () => {},
+                                  onPressed: () => {
+                                    editUser(
+                                        context,
+                                        data,
+                                        nameController.text,
+                                        emailController.text,
+                                        passwordController.text)
+                                  },
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: AppTheme.white,
                                       side: BorderSide.none,
